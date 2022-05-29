@@ -13,12 +13,15 @@ import Time.WaitTime.AbsTime;
  */
 public class TimeS extends AbsTime {
 
-    public TimeS(int time) {
-        super(time);
+    public TimeS() {
+    }
+
+    public TimeS(long spec) {
+        super(spec);
     }
     
     @Override
-    public long getTimeCurrent() {
-        return System.currentTimeMillis() / 1000;
+    public double getTimeCurrent() {
+        return System.currentTimeMillis() / 1000.0;
     }
 }

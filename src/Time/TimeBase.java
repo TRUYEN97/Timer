@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.GetTime;
+package Time;
 
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -17,11 +18,11 @@ import java.util.TimeZone;
  */
 public class TimeBase {
 
-    public static final String DD__MM__YYYY = "dd - MM - yyyy";
-    public static final String HH_MM_SS = "HH : mm : ss";
+    public static final String DD__MM__YYYY = "dd-MM-yyyy";
+    public static final String HH_MM_SS = "HH:mm:ss";
     public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd hh:mm:ss";
-    static public final int UTC7 = 7;
-    static public final int UTC = 0;
+    public static final int UTC7 = 7;
+    public static final int UTC = 0;
     private static final String CUSTOMENT_SERVER = "http://10.90.0.15:8000/auth/login//";
     private static final String WEB_SERVER = "http://time.windows.com";
 
@@ -50,7 +51,6 @@ public class TimeBase {
             cal.setTime(cal.getTime());
             cal.add(Calendar.HOUR, timeZone);
             String dateByFormat = SimpleDateTimeFormat(cal.getTime(), fomat);
-            // System.out.println(dateByFormat);
             return dateByFormat;
         } catch (Exception ex) {
             return "";
@@ -62,20 +62,17 @@ public class TimeBase {
         return Math.abs(timeZone) > 12;
     }
 
-    public Date getWebsiteDatetime() {
+    public Date getWebsiteDatetime(final String URL) {
         try {
-//            String addr = CUSTOMENT_SERVER;
-            String addr = WEB_SERVER;
-//            URL url = new URL();
-            System.out.println(String.format("Get time from : %s", addr));
-            URL url = new URL(addr);
+//            System.out.println(String.format("Get time from : %s", URL));
+            URL url = new URL(URL);
             URLConnection uc = url.openConnection();
             uc.connect();
             long ld = uc.getDate();
             Date date = new Date(ld);
             return date;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.err.println(ex);
         }
         return null;
     }
@@ -97,5 +94,9 @@ public class TimeBase {
             startTime = 0;
         }
         return (this.getCurrentMillis() - startTime);
+    }
+
+    public String getDate() {
+        return getDateTime(TimeBase.UTC, TimeBase.DD__MM__YYYY);
     }
 }

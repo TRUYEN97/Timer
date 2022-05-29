@@ -13,12 +13,16 @@ import Time.WaitTime.AbsTime;
  */
 public class TimeMM extends AbsTime {
 
-    public TimeMM(int time) {
+    public TimeMM() {
+    }
+    
+
+    public TimeMM(double time) {
         super(time);
     }
 
     @Override
-    public long getTimeCurrent() {
-        return (long) (System.currentTimeMillis() / 6e4);
+    public double getTimeCurrent() {
+        return (double)(System.currentTimeMillis() /(double) 6e4);
     }
 }

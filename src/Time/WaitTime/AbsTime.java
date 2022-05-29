@@ -8,37 +8,38 @@ package Time.WaitTime;
  *
  * @author Administrator
  */
-public abstract class AbsTime implements ITimer {
+public abstract class AbsTime{
 
-    private long startTime = 0;
-    private int spec = 0;
+    private double startTime = 0;
+    private double spec = 0;
 
     protected AbsTime() {
     }
 
-    protected AbsTime(int spec) {
-        this();
+    protected AbsTime(double spec) {
         start(spec);
     }
+    
+    protected abstract double getTimeCurrent();
 
-    @Override
-    public void start(int spec) {
+    public final void start(double spec) {
         this.spec = spec;
         startTime = getTimeCurrent();
     }
 
-    @Override
     public boolean onTime() {
-        return getTimeCurrent() - startTime < spec;
+        return getTime() < spec;
     }
 
-    @Override
+    public double getTime() {
+        return getTimeCurrent() - startTime;
+    }
+
     public void update() {
         startTime = getTimeCurrent();
     }
 
-    @Override
-    public boolean isTimeBigThan(int time) {
-        return getTimeCurrent() - startTime >= time;
+    public boolean isOverTime(int time) {
+        return getTime() >= time;
     }
 }

@@ -6,18 +6,21 @@ package Time.WaitTime.Class;
 
 import Time.WaitTime.AbsTime;
 
-
 /**
  *
  * @author Administrator
  */
-public class TimeH extends AbsTime{
-      public TimeH(int time) {
+public class TimeH extends AbsTime {
+
+    public TimeH() {
+    }
+
+    public TimeH(double time) {
         super(time);
     }
 
-      @Override
-    public long getTimeCurrent() {
-        return (long) (System.currentTimeMillis() / 36e6);
+    @Override
+    public double getTimeCurrent() {
+        return (double) (System.currentTimeMillis() / (double) 36e6);
     }
 }
