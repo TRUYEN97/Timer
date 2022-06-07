@@ -20,7 +20,7 @@ public class TimeBase {
 
     public static final String DD__MM__YYYY = "dd-MM-yyyy";
     public static final String HH_MM_SS = "HH:mm:ss";
-    public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd hh:mm:ss";
+    public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final int UTC7 = 7;
     public static final int UTC = 0;
     private static final String CUSTOMENT_SERVER = "http://10.90.0.15:8000/auth/login//";
