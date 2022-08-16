@@ -19,7 +19,7 @@ import java.util.TimeZone;
 public class TimeBase {
 
     public static final String DD__MM__YYYY = "dd-MM-yyyy";
-    public static final String HH_MM_SS = "HH:mm:ss";
+    public static final String HH_MM_SS = "HH : mm : ss";
     public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_MS = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final int UTC7 = 7;
@@ -65,7 +65,6 @@ public class TimeBase {
 
     public Date getWebsiteDatetime(final String URL) {
         try {
-//            System.out.println(String.format("Get time from : %s", URL));
             URL url = new URL(URL);
             URLConnection uc = url.openConnection();
             uc.connect();
