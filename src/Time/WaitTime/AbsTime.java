@@ -54,7 +54,7 @@ public abstract class AbsTime {
     }
 
     public void stop() {
-        this.endTime = getTimeCurrent();
+        this.endTime = getTime();
         this.run = false;
     }
 }
