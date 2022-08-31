@@ -8,10 +8,12 @@ package Time.WaitTime;
  *
  * @author Administrator
  */
-public abstract class AbsTime{
+public abstract class AbsTime {
 
     private double startTime = 0;
     private double spec = 0;
+    private boolean run = false;
+    private double endTime = 0;
 
     protected AbsTime() {
     }
@@ -19,10 +21,11 @@ public abstract class AbsTime{
     protected AbsTime(double spec) {
         start(spec);
     }
-    
+
     protected abstract double getTimeCurrent();
 
     public final void start(double spec) {
+        this.run = true;
         this.spec = spec;
         startTime = getTimeCurrent();
     }
@@ -32,7 +35,10 @@ public abstract class AbsTime{
     }
 
     public double getTime() {
-        return getTimeCurrent() - startTime;
+        if (isRun()) {
+            return getTimeCurrent() - startTime;
+        }
+        return endTime;
     }
 
     public void update() {
@@ -41,5 +47,14 @@ public abstract class AbsTime{
 
     public boolean isOverTime(int time) {
         return getTime() >= time;
+    }
+
+    public boolean isRun() {
+        return run;
+    }
+
+    public void stop() {
+        this.endTime = getTimeCurrent();
+        this.run = false;
     }
 }
