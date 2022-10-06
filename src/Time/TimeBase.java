@@ -19,23 +19,32 @@ import java.util.TimeZone;
 public class TimeBase {
 
     public static final String DD__MM__YYYY = "dd-MM-yyyy";
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String HH_MM_SS = "HH : mm : ss";
     public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_MS = "yyyy-MM-dd HH:mm:ss.SSS";
-    public static final int UTC7 = 7;
-    public static final int UTC = 0;
+    public static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+    public static final TimeZone UTC7 = TimeZone.getTimeZone("Asia/Saigon");
     private static final String CUSTOMENT_SERVER = "http://10.90.0.15:8000/auth/login//";
     private static final String WEB_SERVER = "http://time.windows.com";
 
-    public String SimpleDateTimeFormat(Object time, String format) {
-
-        String dateStr = "";
+    public String SimpleDateTimeFormat(Date time, String format) {
         try {
             SimpleDateFormat simFormat = new SimpleDateFormat(format);
-            dateStr = simFormat.format(time);
+            return simFormat.format(time);
         } catch (Exception e) {
+            return null;
         }
-        return dateStr;
+    }
+
+    public String SimpleDateTimeFormat(TimeZone timeZone, Date time, String format) {
+        try {
+            SimpleDateFormat simFormat = new SimpleDateFormat(format);
+            simFormat.setTimeZone(timeZone);
+            return simFormat.format(time);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String getTimeZone() {
@@ -43,38 +52,31 @@ public class TimeBase {
         return tz.getID();
     }
 
-    public String getDateTime(int timeZone, String fomat) {
+    public String getDateTime(TimeZone timeZone, String fomat) {
         try {
-            if (outOfRange(timeZone)) {
-                timeZone = 0;
-            }
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(cal.getTime());
-            cal.add(Calendar.HOUR, timeZone);
-            String dateByFormat = SimpleDateTimeFormat(cal.getTime(), fomat);
-            return dateByFormat;
+            return SimpleDateTimeFormat(timeZone, Calendar.getInstance().getTime(), fomat);
         } catch (Exception ex) {
-            return "";
+            return null;
         }
-
     }
 
-    private boolean outOfRange(int timeZone) {
-        return Math.abs(timeZone) > 12;
+    public String getDateTime(String fomat) {
+        try {
+            return SimpleDateTimeFormat(Calendar.getInstance().getTime(), fomat);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
-    public Date getWebsiteDatetime(final String URL) {
+    public Date getWebsiteDatetime(String URL) {
         try {
             URL url = new URL(URL);
             URLConnection uc = url.openConnection();
             uc.connect();
-            long ld = uc.getDate();
-            Date date = new Date(ld);
-            return date;
+            return new Date(uc.getDate());
         } catch (IOException ex) {
-            System.err.println(ex);
+            return null;
         }
-        return null;
     }
 
     public long getCurrentMillis() {
@@ -82,21 +84,18 @@ public class TimeBase {
     }
 
     public String getSimpleDateTime() {
-        return getDateTime(TimeBase.UTC, TimeBase.SIMPLE_DATE_TIME);
-    }
-
-    public double mathCycleTimeS(long startTime) {
-        return ((double) mathCycleTimeMs(startTime)) / 1000.0;
-    }
-
-    public long mathCycleTimeMs(long startTime) {
-        if (startTime < 0) {
-            startTime = 0;
-        }
-        return (this.getCurrentMillis() - startTime);
+        return getDateTime(TimeBase.SIMPLE_DATE_TIME);
     }
 
     public String getDate() {
-        return getDateTime(TimeBase.UTC, TimeBase.DD__MM__YYYY);
+        return getDateTime(TimeBase.DD__MM__YYYY);
+    }
+
+    public String getSimpleDateTime(TimeZone timeZone) {
+        return getDateTime(timeZone, TimeBase.SIMPLE_DATE_TIME);
+    }
+
+    public String getDate(TimeZone timeZone) {
+        return getDateTime(timeZone, TimeBase.DD__MM__YYYY);
     }
 }
