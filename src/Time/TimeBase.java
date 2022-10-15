@@ -27,17 +27,17 @@ public class TimeBase {
     public static final TimeZone UTC7 = TimeZone.getTimeZone("Asia/Saigon");
     private static final String CUSTOMENT_SERVER = "http://10.90.0.15:8000/auth/login//";
     private static final String WEB_SERVER = "http://time.windows.com";
+    private final TimeZone defaultTimeZone;
 
-    public String SimpleDateTimeFormat(Date time, String format) {
-        try {
-            SimpleDateFormat simFormat = new SimpleDateFormat(format);
-            return simFormat.format(time);
-        } catch (Exception e) {
-            return null;
-        }
+    public TimeBase(TimeZone defaultTimeZone) {
+        this.defaultTimeZone = defaultTimeZone;
     }
 
-    public String SimpleDateTimeFormat(TimeZone timeZone, Date time, String format) {
+    public String simpleDateTimeFormat(Date time, String format) {
+        return simpleDateTimeFormat(defaultTimeZone, time, format);
+    }
+
+    public String simpleDateTimeFormat(TimeZone timeZone, Date time, String format) {
         try {
             SimpleDateFormat simFormat = new SimpleDateFormat(format);
             simFormat.setTimeZone(timeZone);
@@ -54,7 +54,7 @@ public class TimeBase {
 
     public String getDateTime(TimeZone timeZone, String fomat) {
         try {
-            return SimpleDateTimeFormat(timeZone, Calendar.getInstance().getTime(), fomat);
+            return simpleDateTimeFormat(timeZone, Calendar.getInstance().getTime(), fomat);
         } catch (Exception ex) {
             return null;
         }
@@ -62,7 +62,7 @@ public class TimeBase {
 
     public String getDateTime(String fomat) {
         try {
-            return SimpleDateTimeFormat(Calendar.getInstance().getTime(), fomat);
+            return TimeBase.this.simpleDateTimeFormat(Calendar.getInstance().getTime(), fomat);
         } catch (Exception ex) {
             return null;
         }
