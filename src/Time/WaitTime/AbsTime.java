@@ -30,6 +30,10 @@ public abstract class AbsTime {
         startTime = getTimeCurrent();
     }
 
+    public double getSpec() {
+        return spec;
+    }
+
     public boolean onTime() {
         return getTime() < spec;
     }
