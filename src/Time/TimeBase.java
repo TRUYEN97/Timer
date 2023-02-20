@@ -22,6 +22,7 @@ public class TimeBase {
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String HH_MM_SS = "HH : mm : ss";
     public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    public static final String MM_DD_YYYY_HH_MM_SS = "MM/dd/yyyy hh:mm:ss";
     public static final String DATE_TIME_MS = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final TimeZone UTC = TimeZone.getTimeZone("UTC");
     public static final TimeZone UTC7 = TimeZone.getTimeZone("Asia/Saigon");
@@ -29,6 +30,20 @@ public class TimeBase {
     private static final String WEB_SERVER = "http://time.windows.com";
     private final TimeZone defaultTimeZone;
 
+    public String conVertToFormat(String timeString, String format, String formatNew) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+            Date date =  dateFormat.parse(timeString);
+            return simpleDateTimeFormat(date, formatNew);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public TimeBase() {
+        this(UTC);
+    }
     public TimeBase(TimeZone defaultTimeZone) {
         this.defaultTimeZone = defaultTimeZone;
     }
