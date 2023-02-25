@@ -22,7 +22,7 @@ public class TimeBase {
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String HH_MM_SS = "HH : mm : ss";
     public static final String SIMPLE_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
-    public static final String MM_DD_YYYY_HH_MM_SS = "MM/dd/yyyy hh:mm:ss";
+    public static final String MM_DD_YYYY_HH_MM_SS = "MM/dd/yyyy HH:mm:ss";
     public static final String DATE_TIME_MS = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final TimeZone UTC = TimeZone.getTimeZone("UTC");
     public static final TimeZone UTC7 = TimeZone.getTimeZone("Asia/Saigon");
