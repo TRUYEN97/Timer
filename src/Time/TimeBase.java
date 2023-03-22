@@ -103,7 +103,7 @@ public class TimeBase {
     }
 
     public String getDate() {
-        return getDateTime(TimeBase.DD__MM__YYYY);
+        return getDateTime(TimeBase.YYYY_MM_DD);
     }
 
     public String getSimpleDateTime(TimeZone timeZone) {
@@ -111,6 +111,6 @@ public class TimeBase {
     }
 
     public String getDate(TimeZone timeZone) {
-        return getDateTime(timeZone, TimeBase.DD__MM__YYYY);
+        return getDateTime(timeZone, TimeBase.YYYY_MM_DD);
     }
 }
